@@ -5,14 +5,14 @@ from scipy import fft
 
 mean = 0
 std_dev = 10
-n = 1000
+n = 500
 
 random_signal = np.random.normal(mean, std_dev, n)
 
-Fs = 2000
+Fs = 1000
 time = np.arange(n) / Fs
 
-F_max = 40
+F_max = 9
 w = F_max / (Fs / 2)
 
 sos = signal.butter(3, w, 'low', output='sos')
@@ -31,7 +31,7 @@ def plot_signal(x, y, title, xlabel, ylabel, filename):
 plot_signal(
     time,
     filtered_signal,
-    title="Сигнал з максимальною частотою F_max=40 Гц",
+    title="Сигнал з максимальною частотою F_max=9 Гц",
     xlabel="Час (секунди)",
     ylabel="Амплітуда сигналу",
     filename="filtered_signal"
@@ -44,7 +44,7 @@ spectrum_magnitude = np.abs(fft.fftshift(spectrum))
 freqs = fft.fftfreq(n, 1/Fs)
 freqs_shifted = fft.fftshift(freqs)
 
-# оскільки корисний сигнал після фільтрації містить частоти лише до 40 Гц,
+# оскільки корисний сигнал після фільтрації містить частоти лише до 9 Гц,
 # можна обмежити діапазон частот до +-200 Гц для кращого розуміння спектра
 # можливо це не треба було робити, але графік дуже вузький без обмеження
 
@@ -57,7 +57,7 @@ spectrum_limited = spectrum_magnitude[mask]
 plot_signal(
     freqs_limited,
     spectrum_limited,
-    title="Спектр сигналу з максимальною частотою F_max = 40 Гц",
+    title="Спектр сигналу з максимальною частотою F_max = 9 Гц",
     xlabel="Частота (Гц)",
     ylabel="Амплітуда спектру",
     filename="signal_spectrum"
