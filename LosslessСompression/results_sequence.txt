@@ -1,0 +1,52 @@
+Analysis for sequence 1:
+Probabilities: 0=0.9600, 1=0.0400
+Entropy: 0.2423
+Redundancy: 0.7577
+Type: нерівна
+
+Analysis for sequence 2:
+Probabilities: в=0.0100, і=0.0100, л=0.0100, е=0.0100, й=0.0200, с=0.0100, ь=0.0100, к=0.0100, и=0.0100, 0=0.9000
+Entropy: 0.7812
+Redundancy: 0.7648
+Type: нерівна
+
+Analysis for sequence 3:
+Probabilities: 0=0.9000, л=0.0200, й=0.0300, в=0.0100, к=0.0200, і=0.0100, е=0.0100
+Entropy: 0.7136
+Redundancy: 0.7458
+Type: нерівна
+
+Analysis for sequence 4:
+Probabilities: в=0.0800, і=0.0800, л=0.0800, е=0.0800, й=0.1500, с=0.0800, ь=0.0800, к=0.0800, и=0.0800, 5=0.0700, 2=0.0700, 9=0.0700
+Entropy: 3.5483
+Redundancy: 0.0102
+Type: нерівна
+
+Analysis for sequence 5:
+Probabilities: і=0.2000, 9=0.2300, в=0.2500, 5=0.1500, 2=0.1700
+Entropy: 2.2972
+Redundancy: 0.0107
+Type: нерівна
+
+Analysis for sequence 6:
+Probabilities: і=0.4300, в=0.2700, 2=0.0600, 9=0.1400, 5=0.1000
+Entropy: 2.0064
+Redundancy: 0.1359
+Type: нерівна
+
+Analysis for sequence 7:
+Probabilities: u=0.0400, 2=0.0500, e=0.0500, 1=0.0300, a=0.0300, 5=0.0400, w=0.0400, t=0.0300, l=0.0400, 4=0.0200, c=0.0400, 3=0.0400, p=0.0300, 8=0.0500, b=0.0300, h=0.0100, y=0.0200, k=0.0100, v=0.0500, 6=0.0400, n=0.0100, i=0.0100, m=0.0100, 7=0.0100, 9=0.0200, s=0.0200, r=0.0100, j=0.0300, d=0.0300, o=0.0400, z=0.0200, x=0.0400, q=0.0200, 0=0.0200, f=0.0200
+Entropy: 4.9666
+Redundancy: 0.0317
+Type: нерівна
+
+Analysis for sequence 8:
+Probabilities: 1=1.0000
+Entropy: -0.0000
+Redundancy: 1.0000
+Type: рівна
+
+111111111111111111111111111111111111111111111111111111111111111111111111111111
+Sequence 8 alphabet size: 1
+Original sequence 8 size (bytes): 100
+
