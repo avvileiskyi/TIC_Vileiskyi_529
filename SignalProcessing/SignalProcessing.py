@@ -62,3 +62,97 @@ plot_signal(
     ylabel="Амплітуда спектру",
     filename="signal_spectrum"
 )
+
+discrete_signals = []
+
+for Dt in [2, 4, 8, 16]:
+    discrete_signal = np.zeros(n)
+    for i in range(0, round(n / Dt)):
+        if i * Dt < n:
+            discrete_signal[i * Dt] = filtered_signal[i * Dt]
+    discrete_signals.append(list(discrete_signal))
+
+fig, ax = plt.subplots(2, 2, figsize=(21/2.54, 14/2.54))
+s = 0
+for i in range(2):
+    for j in range(2):
+        ax[i][j].plot(time, discrete_signals[s], linewidth=1)
+        s += 1
+
+fig.supxlabel("Час (секунди)", fontsize=14)
+fig.supylabel("Амплітуда сигналу", fontsize=14)
+fig.suptitle("Сигнали з кроком дискретизації Dt = (2, 4, 8, 16)", fontsize=14)
+fig.savefig("../SignalProcessing/figures/discrete_signals.png", dpi=600)
+plt.close(fig)
+
+discrete_spectrums = []
+for sig in discrete_signals:
+    spectrum = fft.fft(sig)
+    spectrum_magnitude = np.abs(fft.fftshift(spectrum))
+    discrete_spectrums.append(list(spectrum_magnitude))
+
+fig, ax = plt.subplots(2, 2, figsize=(21/2.54, 14/2.54))
+s = 0
+for i in range(2):
+    for j in range(2):
+        ax[i][j].plot(freqs_shifted, discrete_spectrums[s], linewidth=1)
+        s += 1
+
+fig.supxlabel("Частота (Гц)", fontsize=14)
+fig.supylabel("Амплітуда спектру", fontsize=14)
+fig.suptitle("Спектри сигналів з кроком дискретизації Dt = (2, 4, 8, 16)", fontsize=14)
+fig.savefig("../SignalProcessing/figures/discrete_spectrums.png", dpi=600)
+plt.close(fig)
+
+discrete_restored_signals = []
+w_filter = 16 / (Fs / 2)
+sos_filter = signal.butter(3, w_filter, 'low', output='sos')
+
+for sig in discrete_signals:
+    restored_signal = signal.sosfiltfilt(sos_filter, sig)
+    discrete_restored_signals.append(list(restored_signal))
+
+fig, ax = plt.subplots(2, 2, figsize=(21/2.54, 14/2.54))
+s = 0
+for i in range(2):
+    for j in range(2):
+        ax[i][j].plot(time, discrete_restored_signals[s], linewidth=1)
+        s += 1
+
+fig.supxlabel("Час (секунди)", fontsize=14)
+fig.supylabel("Амплітуда сигналу", fontsize=14)
+fig.suptitle("Відновлені аналогові сигнали з кроком дискретизації Dt = (2, 4, 8, 16)", fontsize=14)
+fig.savefig("../SignalProcessing/figures/restored_signals.png", dpi=600)
+plt.close(fig)
+
+dispersions = []
+snrs = []
+
+for restored in discrete_restored_signals:
+    diff = np.array(restored) - filtered_signal
+    signal_var = np.var(filtered_signal)
+    diff_var = np.var(diff)
+    dispersions.append(diff_var)
+    snrs.append(signal_var / diff_var)
+
+Dts = [2, 4, 8, 16]
+
+# дисперсія
+plt.figure(figsize=(21/2.54, 14/2.54))
+plt.grid(True)
+plt.plot(Dts, dispersions, marker='o', linewidth=1)
+plt.xlabel("Крок дискретизації", fontsize=14)
+plt.ylabel("Дисперсія", fontsize=14)
+plt.title("Залежність дисперсії від кроку дискретизації", fontsize=14)
+plt.savefig("../SignalProcessing/figures/dispersion_vs_dt.png", dpi=600)
+plt.close()
+
+# ССШ
+plt.figure(figsize=(21/2.54, 14/2.54))
+plt.grid(True)
+plt.plot(Dts, snrs, marker='o', linewidth=1)
+plt.xlabel("Крок дискретизації Dt", fontsize=14)
+plt.ylabel("ССШ", fontsize=14)
+plt.title("Залежність співвідношення сигнал-шум від кроку дискретизації", fontsize=14)
+plt.savefig("../SignalProcessing/figures/snr_vs_dt.png", dpi=600)
+plt.close()
